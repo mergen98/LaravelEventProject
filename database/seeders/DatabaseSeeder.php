@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
          ]);
         
         Country::create(['name' => 'United Kingdom']);
-        Country::create(['name' => 'United Greece']);
+        Country::create(['name' => 'Greece']);
         
         City::create(['country_id' => 1, 'name' => 'London']);
         City::create(['country_id' => 1, 'name' => 'Liverpool']);
