@@ -17,7 +17,6 @@
                     axios.get(`/countries/${event.target.value}`).then(res => {
                         this.cities = res.data
                     })
-
                 }
             }" enctype="multipart/form-data"
 			      class="p-4 bg-white dark:bg-slate-800 rounded-md">
