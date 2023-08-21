@@ -69,22 +69,30 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallary $gallery)
     {
-        $path = $gallery->image;
-        $this->validate($request, [
+        $validationRules = [
             'caption' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,max:2048',
-        ]);
-        if ($request->hasFile('image')) {
-            Storage::delete($gallery->image);
-            $path =  $request->file('image')->store('galleries', 'public');
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+        
+        $request->validate($validationRules);
+        
+        $imageFile = $request->file('image');
+        $path = $gallery->image;
+        
+        if ($imageFile) {
+            Storage::delete($path);
+            $path = $imageFile->store('galleries', 'public');
         }
+        
         $gallery->update([
             'caption' => $request->input('caption'),
-            'image' => $request->file('image')->store('galleries', 'public'),
+            'image' => $path,
         ]);
-        return to_route('galleries.index');
+        
+        return redirect()->route('galleries.index');
     }
-
+    
+    
     /**
      * Remove the specified resource from storage.
      */
