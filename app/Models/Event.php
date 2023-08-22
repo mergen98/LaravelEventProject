@@ -60,6 +60,10 @@ class Event extends Model
     {
         return $this->hasMany(Attending::class);
     }
+    public function savedEvent(): HasMany
+    {
+        return $this->hasMany(SavedEvent::class);
+    }
     
     public function tags(): BelongsToMany
     {

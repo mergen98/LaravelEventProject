@@ -2,11 +2,9 @@
 	<x-slot name="header">
 		<div class="flex justify-between">
 			<h2 class="font-semi-bold text-xl text-gray-800 leading-tight">
-				{{ __('Gallery') }}
+				{{ __('Liked Events') }}
 			</h2>
-			<div>
-				<a href="{{ route('galleries.create') }}" class=" hover:text-slate-600">New Gallery</a>
-			</div>
+
 		</div>
 	</x-slot>
 
@@ -17,10 +15,13 @@
 					<thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:text-gray-700">
 					<tr>
 						<th scope="col" class="px-6 py-3">
-							Image
+							Title
 						</th>
 						<th scope="col" class="px-6 py-3">
-							Caption
+							Start Date
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Country
 						</th>
 						<th scope="col" class="px-6 py-3">
 							Action
@@ -28,36 +29,29 @@
 					</tr>
 					</thead>
 					<tbody>
-					@forelse($galleries as $gallery)
-						<tr class="bg-white border-b dark:border-gray-300">
+					@forelse($events as $event)
+						<tr class="bg-white border-b dark:border-gray-200">
 							<th scope="row"
-							    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-								<img src="{{ asset('storage/' . $gallery->image) }}" class="w-20 h-20">
+							    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-dark">
+								{{ $event->title }}
 							</th>
 							<td class="px-6 py-4">
-								{{ $gallery->caption }}
+								{{ $event->start_date }}
+							</td>
+							<td class="px-6 py-4">
+								{{ $event->country->name }}
 							</td>
 							<td class="px-6 py-4">
 								<div class="flex space-x-2">
-									<a href="{{ route('galleries.edit', $gallery) }}"
-									   class="text-green-400 hover:text-green-600">Edit</a>
-									<form method="POST" class="text-red-400 hover:text-red-600"
-									      action="{{ route('galleries.destroy', $gallery) }}">
-										@csrf
-										@method('DELETE')
-										<a href="{{ route('galleries.destroy', $gallery) }}"
-										   onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-											Delete
-										</a>
-									</form>
+									<a href="{{ route('eventShow', $event) }}"
+									   class="text-green-400 hover:text-green-600">View</a>
 								</div>
 							</td>
 						</tr>
 					@empty
 						<tr>
 							<td colspan="4" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-								No Gallery found
+								No events found
 							</td>
 						</tr>
 					@endforelse

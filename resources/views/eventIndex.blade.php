@@ -26,6 +26,7 @@
                     </div>
                 @endforeach
             </div>
+            {{ $events->links() }}
         </div>
     </section>
 </x-main-layout>
