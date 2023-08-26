@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendingEventController;
 use App\Http\Controllers\DeleteCommentController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EventAttendingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventIndexController;
@@ -15,7 +16,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaveEventController;
 use App\Http\Controllers\StoreCommentController;
 use App\Http\Controllers\WelcomeController;
+use App\Mail\MyFirstMail;
 use App\Models\Country;
+use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +41,7 @@ Route::get('/gallery', GalleryIndexController::class)->name('galleryIndex');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/send-demo-email', [EmailController::class,'sendDemoEmail']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
